@@ -1,18 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, TouchableOpacity, StyleSheet, } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 
 const CameraScreen = ({ navigation }) => {
 
+    const [detectedIngredients, setDetectedIngredients] = useState(new Set())
+
     const textRecognized = ({textBlocks}) => {
-        console.log(textBlocks)
+        if(textBlocks.length !== 0) {
+            let currentState = detectedIngredients;
+            textBlocks.forEach(text => {
+                currentState.add(text.value.toLowerCase())          
+            });
+            setDetectedIngredients(detectedIngredients);
+        }
+    };
+
+    const showDetected = () => {
+        alert([...detectedIngredients].join(', '));
     }
 
     return (
         <View style={styles.container}>
             <RNCamera style={styles.preview} captureAudio={false} onTextRecognized={textRecognized}/>
             <View>
-                <TouchableOpacity style={styles.outerCapture}>
+                <TouchableOpacity style={styles.outerCapture} onPressOut={showDetected}>
                     <View style={styles.innerCapture}/>
                 </TouchableOpacity>
             </View>
