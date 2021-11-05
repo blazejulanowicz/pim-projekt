@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { View, TouchableOpacity, StyleSheet, } from 'react-native';
+import { Text, View, TouchableOpacity, StyleSheet, } from 'react-native';
 import { RNCamera } from 'react-native-camera';
+import IngredientCounter from './camera/IngredientCounter';
 
 const CameraScreen = ({ navigation }) => {
 
@@ -22,18 +23,25 @@ const CameraScreen = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-            <RNCamera style={styles.preview} captureAudio={false} onTextRecognized={textRecognized}/>
-            <View>
-                <TouchableOpacity style={styles.outerCapture} onPressOut={showDetected}>
-                    <View style={styles.innerCapture}/>
-                </TouchableOpacity>
+            <View style={styles.counter}>
+                <IngredientCounter/>
             </View>
+            <RNCamera style={styles.preview} captureAudio={false} onTextRecognized={textRecognized}/>
+            <TouchableOpacity style={styles.outerCapture} onPressOut={showDetected}>
+                <Text style={styles.innerCapture}>FINISH</Text>
+            </TouchableOpacity>
         </View>
     )
 };
 
 
 const styles = StyleSheet.create({
+    counter: {
+        position: 'absolute',
+        zIndex: 100,
+        alignSelf: 'center',
+        top: 10
+    },
     container: {
       flex: 1,
       flexDirection: 'column',
@@ -46,7 +54,7 @@ const styles = StyleSheet.create({
     },
     outerCapture: {
       position: 'absolute',
-      bottom: 10,
+      bottom: 20,
       borderColor: '#fff',
       borderWidth: 2,
       borderRadius: 100,
@@ -57,12 +65,15 @@ const styles = StyleSheet.create({
     },
 
     innerCapture: {
-      backgroundColor: '#fff',
-      borderWidth: 2,
-      borderRadius: 100,
       alignSelf: 'center',
-      width: 60,
-      height: 60,
+      fontSize: 20,
+      backgroundColor: 'lightgreen',
+      color: 'black',
+      borderRadius: 100,
+      padding: 10,
+      paddingHorizontal: 10,
+      width: 150,
+      textAlign: 'center'
     }
   });
 
