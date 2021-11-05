@@ -4,9 +4,13 @@ import { RNCamera } from 'react-native-camera';
 
 const CameraScreen = ({ navigation }) => {
 
+    const textRecognized = ({textBlocks}) => {
+        console.log(textBlocks)
+    }
+
     return (
         <View style={styles.container}>
-            <RNCamera style={styles.preview} captureAudio={false}/>
+            <RNCamera style={styles.preview} captureAudio={false} onTextRecognized={textRecognized}/>
             <View>
                 <TouchableOpacity style={styles.outerCapture}>
                     <View style={styles.innerCapture}/>
