@@ -1,31 +1,33 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 import IngredientCounter from './camera/IngredientCounter';
 import FinishButton from './camera/FinishButton';
+import NewIngredientList from './camera/NewIngredientList';
 
 const CameraScreen = ({ navigation }) => {
 
-    const [detectedIngredients, setDetectedIngredients] = useState(new Set())
+    const [detectedIngredients, setDetectedIngredients] = useState([])
 
     const textRecognized = ({textBlocks}) => {
         if(textBlocks.length !== 0) {
-            let currentState = detectedIngredients;
             textBlocks.forEach(text => {
-                currentState.add(text.value.toLowerCase())          
+                if(!detectedIngredients.map(el => el.name).includes(text.value.toLowerCase())) {
+                    setDetectedIngredients((prevState) => [...prevState,{name: text.value.toLowerCase()}])   
+                }       
             });
-            setDetectedIngredients(detectedIngredients);
         }
     };
 
     const showDetected = () => {
-        alert([...detectedIngredients].join(', '));
-    }
+        setDetectedIngredients([...detectedIngredients, {name: detectedIngredients.length.toString()}]);
+    };
 
     return (
         <View style={styles.container}>
             <View style={styles.counter}>
                 <IngredientCounter/>
+                <NewIngredientList detectedItems={[...detectedIngredients]} />
             </View>
             <RNCamera style={styles.preview} captureAudio={false} onTextRecognized={textRecognized}/>
             <View style={styles.floatingMenu}>
@@ -57,6 +59,7 @@ const styles = StyleSheet.create({
       alignSelf: 'center',
       position: 'absolute',
       bottom: 20,
+      zIndex: 999
     }
   });
 
