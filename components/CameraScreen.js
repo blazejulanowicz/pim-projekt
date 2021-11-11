@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Text, View, TouchableOpacity, StyleSheet, } from 'react-native';
+import { View, StyleSheet, } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 import IngredientCounter from './camera/IngredientCounter';
+import FinishButton from './camera/FinishButton';
 
 const CameraScreen = ({ navigation }) => {
 
@@ -27,9 +28,9 @@ const CameraScreen = ({ navigation }) => {
                 <IngredientCounter/>
             </View>
             <RNCamera style={styles.preview} captureAudio={false} onTextRecognized={textRecognized}/>
-            <TouchableOpacity style={styles.outerCapture} onPressOut={showDetected}>
-                <Text style={styles.innerCapture}>FINISH</Text>
-            </TouchableOpacity>
+            <View style={styles.floatingMenu}>
+                <FinishButton onFinish={showDetected} />
+            </View>
         </View>
     )
 };
@@ -52,28 +53,10 @@ const styles = StyleSheet.create({
       justifyContent: 'flex-end',
       alignItems: 'center',
     },
-    outerCapture: {
+    floatingMenu: {
+      alignSelf: 'center',
       position: 'absolute',
       bottom: 20,
-      borderColor: '#fff',
-      borderWidth: 2,
-      borderRadius: 100,
-      padding: 5,
-      paddingHorizontal: 5,
-      alignSelf: 'center',
-      margin: 20,
-    },
-
-    innerCapture: {
-      alignSelf: 'center',
-      fontSize: 20,
-      backgroundColor: 'lightgreen',
-      color: 'black',
-      borderRadius: 100,
-      padding: 10,
-      paddingHorizontal: 10,
-      width: 150,
-      textAlign: 'center'
     }
   });
 
