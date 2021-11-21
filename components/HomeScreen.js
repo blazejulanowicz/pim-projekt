@@ -6,6 +6,8 @@ import {
   Text,
   View,
 } from 'react-native';
+import { firebase } from '@react-native-firebase/database';
+
 
 const HomeScreen = ({ navigation }) => {
     const backgroundStyle = {
@@ -15,7 +17,12 @@ const HomeScreen = ({ navigation }) => {
       };
 
       const startCamera = () => {
-        navigation.navigate('Camera')
+        firebase.app().database('https://enumber-recognizer-default-rtdb.europe-west1.firebasedatabase.app/')
+        .ref('users/blazej')
+        .once('value')
+        .then(snapshot =>
+          alert('User data: ' + snapshot.val()));
+        navigation.navigate('Camera');
       };
 
       return (

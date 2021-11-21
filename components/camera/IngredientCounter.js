@@ -1,12 +1,12 @@
 import React from 'react';
-import { Text, View, TouchableOpacity, StyleSheet, } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
 
-const IngredientCounter = () => {
+const IngredientCounter = ({detectedIngredients}) => {
 
     return (
         <View style={styles.container}>
                 <View style={styles.number}>
-                    <Text style={{color: '#F4EBD0'}}>0</Text>
+                    <Text style={{color: '#F4EBD0'}}>{detectedIngredients}</Text>
                 </View>
                 <Text style={{color: '#F4EBD0'}}>Detected ingredients</Text>
         </View>
