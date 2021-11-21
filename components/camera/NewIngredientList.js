@@ -8,7 +8,7 @@ const NewIngredientList = ({detectedItems}) => {
     const [currItems, setCurrItems] = useState([]);
 
     const deleteItem = (item) => {
-        setCurrItems((prevItems) => prevItems.filter(it => it.name !== item.name))
+        setCurrItems((prevItems) => prevItems.filter(it => it.key !== item.key))
         LayoutAnimation.configureNext(LayoutAnimation.Presets.spring)
     };
 
@@ -25,7 +25,7 @@ const NewIngredientList = ({detectedItems}) => {
         <FlatList
         contentContainerStyle={{height: 10000}}
         data={currItems}
-        keyExtractor={(item) => item.name}
+        keyExtractor={(item) => item.key}
         renderItem={({item}) => <NewIngredient item={item}/>}
         />
     );

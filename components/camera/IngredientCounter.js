@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, } from 'react-native';
 
 const IngredientCounter = ({detectedIngredients}) => {
 
@@ -8,7 +8,7 @@ const IngredientCounter = ({detectedIngredients}) => {
                 <View style={styles.number}>
                     <Text style={{color: '#F4EBD0'}}>{detectedIngredients}</Text>
                 </View>
-                <Text style={{color: '#F4EBD0'}}>Detected ingredients</Text>
+                <Text style={{color: 'gray'}}>Detected ingredients</Text>
         </View>
     )
 };
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor: '#D6AD60',
+      backgroundColor: '#f8d643',
       borderRadius: 5,
       padding: 5,
       paddingHorizontal: 5,

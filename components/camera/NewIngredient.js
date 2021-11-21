@@ -5,7 +5,7 @@ import { Animated, Text } from 'react-native';
 const NewIngredient = ({item}) => {
     return (
         <Animated.View style={{alignSelf: 'center'}}>
-            <Text style={{fontSize: 40}}>+ {item.name}</Text>
+            <Text style={{fontSize: 40}}>+ {item.key}</Text>
         </Animated.View>
     );
 };
