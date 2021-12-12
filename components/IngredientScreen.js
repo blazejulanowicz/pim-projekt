@@ -1,26 +1,38 @@
 import React, { useEffect, useState } from "react";
-import { View, Image, } from "react-native";
+import { View, Image, ScrollView, } from "react-native";
 import { Divider, Header, ListItem, SearchBar, Text, Icon } from "react-native-elements";
-import { SafeAreaView } from "react-native-safe-area-context";
 import logo from '../logoerecognition.png'
+import IngredientOverlay from "./ingredients/IngredientOverlay";
 
 const IngredientScreen = ({ navigation, route}) => {
 
     const [search, setSearch] = useState('');
     const [ingredients, setIngredients] = useState([])
+    const [title, setTitle] = useState([])
 
     useEffect(() => {
-        setIngredients(route.params.ingredients)
+        setTitle(route.params.title);
+        route.params.ingredients.sort((a, b) => {
+            let fKey = parseInt(a.key.replace('e', ''))
+            let sKey = parseInt(b.key.replace('e', ''))
+            if(fKey < sKey)
+                return -1;
+            if(fKey > sKey)
+                return 1;
+            return 0;
+        })
+        setIngredients(route.params.ingredients);
     }, [route]);
 
     const updateSearch = (newValue) => {
         setSearch(newValue);
+        setIngredients(route.params.ingredients.filter((element) => element.key.includes(newValue.toLowerCase())))
     };
 
     const onReturn = () => {
         navigation.navigate('Home');
     };
-    // { icon: 'menu', color: 'blue', iconStyle: { color: '#393e5e' }, onclick={onReturn}}
+
     return (
         <View style={{backgroundColor: '#FBDEDE',}}>
             <Header
@@ -29,12 +41,14 @@ const IngredientScreen = ({ navigation, route}) => {
                 leftComponent={<Icon name='angle-left' type='font-awesome-5' onPress={onReturn} size={30} color='#393e5e'/>}
                 centerComponent={<Image style={{flex: 1, width: 150, height: 150, resizeMode: 'contain'}} source={logo} />}
             />
-            <Text h2 style={{
+            <Text style={{
                 marginBottom: 20, 
                 marginTop: 20, 
                 padding: 5,
                 textAlign: 'center',
-                color: '#393e5e'}}>Detected ingredients</Text>
+                color: '#393e5e',
+                fontFamily: 'Montserrat-Black',
+                fontSize: 30}}>{title}</Text>
             <SearchBar
                 placeholder="Type Here..." 
                 onChangeText={updateSearch} 
@@ -43,14 +57,9 @@ const IngredientScreen = ({ navigation, route}) => {
                 platform='android'
                 />
             <Divider />
-            {ingredients.map(ing => (
-                <ListItem key={ing.key}>
-                <ListItem.Content>
-                    <ListItem.Title h4>{ing.key}</ListItem.Title>
-                    <ListItem.Subtitle>{ing.name}</ListItem.Subtitle>
-                </ListItem.Content>
-                </ListItem>
-            ))}
+            <ScrollView>
+            {ingredients.map(ing => <IngredientOverlay key={ing.key} ingredient={ing}/>)}
+            </ScrollView>
         </View>
     );
 };

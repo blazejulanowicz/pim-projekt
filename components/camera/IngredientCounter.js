@@ -6,9 +6,9 @@ const IngredientCounter = ({detectedIngredients}) => {
     return (
         <View style={styles.container}>
                 <View style={styles.number}>
-                    <Text style={{color: '#F4EBD0'}}>{detectedIngredients}</Text>
+                    <Text style={{color: '#F4EBD0', fontFamily: 'Montserrat-Regular'}}>{detectedIngredients}</Text>
                 </View>
-                <Text style={{color: 'gray'}}>Detected ingredients</Text>
+                <Text style={{color: 'gray', fontFamily: 'Montserrat-Regular'}}>Detected ingredients</Text>
         </View>
     )
 };
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
       borderRadius: 5,
       padding: 2,
       paddingHorizontal: 8,
-      marginRight: 8
+      marginRight: 8,
     }
   });
 

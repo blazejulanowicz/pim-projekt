@@ -24,7 +24,8 @@ const FinishButton = ({onFinish}) => {
           padding: 10,
           paddingHorizontal: 10,
           width: 100,
-          textAlign: 'center'
+          textAlign: 'center',
+          fontFamily: 'Montserrat-Regular'
         },
     
         container: {
